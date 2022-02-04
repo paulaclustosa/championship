@@ -1,8 +1,10 @@
 package com.letscode.entities;
 
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 @Builder
 @Getter
@@ -12,21 +14,24 @@ import java.time.LocalDate;
 public class Match implements Comparable<Match> {
 
     private LocalDate date;
-    private String homeTeam, awayTeam;
+    private String homeTeamName, awayTeamName;
     private int goalsHomeTeam, goalsAwayTeam;
 
     @Override
     public String toString() {
         return  date + ": " +
-                homeTeam + " " +
+                homeTeamName + " " +
                 goalsHomeTeam + " x " +
                 goalsAwayTeam + " " +
-                awayTeam;
+                awayTeamName;
     }
 
     @Override
-    public int compareTo(Match match) {
-        return date.compareTo(match.date);
+    public int compareTo(@NotNull Match match) {
+        return Comparator.comparing(Match::getDate)
+                .thenComparing(Match::getHomeTeamName)
+                .thenComparing(Match::getAwayTeamName)
+                .compare(this, match);
     }
 
 }

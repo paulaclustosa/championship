@@ -1,5 +1,6 @@
 package com.letscode.entities;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,6 +10,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
+@EqualsAndHashCode
 
 public class Team {
 

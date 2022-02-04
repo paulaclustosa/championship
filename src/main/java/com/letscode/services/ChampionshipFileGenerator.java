@@ -1,18 +1,18 @@
 package com.letscode.services;
 
-import com.letscode.Championship;
 import com.letscode.entities.Match;
 import com.letscode.entities.Team;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 
-public class FileGenerator {
+public class ChampionshipFileGenerator {
 
-    public static void createFilePerTeam(Championship championship) {
-        for (Team team : championship.getTeams()) {
+    public static void createFilePerTeam(List<Team> teams) {
+        for (Team team : teams) {
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(team.getName() + ".txt"));
                 for (Match match : team.getMatches()) {

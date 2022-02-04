@@ -1,7 +1,6 @@
 package com.letscode;
 
-import com.letscode.entities.Team;
-import com.letscode.services.FileGenerator;
+import com.letscode.services.ChampionshipHandler;
 
 import java.io.*;
 
@@ -14,8 +13,7 @@ public class Main {
 
         final File FILE = new File("C:\\Users\\paula\\Downloads\\PlanilhaJogos.csv");
         final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Championship championship = new Championship(FILE, FORMATTER);
-        FileGenerator.createFilePerTeam(championship);
+        new ChampionshipHandler(FILE, FORMATTER);
 
     }
 }
