@@ -9,7 +9,6 @@ import java.util.List;
 
 @Setter
 @Getter
-@ToString
 @EqualsAndHashCode
 
 public class Team {
@@ -25,4 +24,12 @@ public class Team {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return  name + ";" +
+                win + ";" +
+                draw + ";" +
+                lose + ";" +
+                points;
+    }
 }

@@ -1,19 +1,18 @@
 package com.letscode;
 
-import com.letscode.services.ChampionshipHandler;
+import com.letscode.entities.Championship;
+import com.letscode.services.FileGenerator;
 
-import java.io.*;
-
-import java.time.format.DateTimeFormatter;
-
+import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        final File FILE = new File("C:\\Users\\paula\\Downloads\\PlanilhaJogos.csv");
-        final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        new ChampionshipHandler(FILE, FORMATTER);
+        String fileName = "matchesResult.csv";
+        Championship championship = new Championship(fileName);
+        FileGenerator.createFilePerTeam(championship);
+        FileGenerator.createChampionshipResultFile(championship);
 
     }
 }

@@ -3,6 +3,7 @@ package com.letscode.entities;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Comparator;
 
@@ -11,7 +12,7 @@ import java.util.Comparator;
 @Setter
 @EqualsAndHashCode
 
-public class Match implements Comparable<Match> {
+public class Match implements Comparable<Match>, Serializable {
 
     private LocalDate date;
     private String homeTeamName, awayTeamName;
