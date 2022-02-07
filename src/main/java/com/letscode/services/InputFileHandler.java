@@ -24,8 +24,8 @@ public class InputFileHandler {
                         .date(LocalDate.parse(data[4], DateTimeFormatter.ofPattern("yyyy-MM-d")))
                         .homeTeamName(data[0])
                         .awayTeamName(data[1])
-                        .goalsHomeTeam(Integer.parseInt(data[2]))
-                        .goalsAwayTeam(Integer.parseInt(data[3]))
+                        .homeTeamGoals(Integer.parseInt(data[2]))
+                        .awayTeamGoals(Integer.parseInt(data[3]))
                         .build();
                 matches.add(match);
             });

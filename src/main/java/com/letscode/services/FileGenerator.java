@@ -11,8 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Comparator;
-import java.util.List;
-
 
 public class FileGenerator {
 
@@ -31,8 +29,10 @@ public class FileGenerator {
     }
 
     public static void createChampionshipResultFile(Championship championship) throws IOException {
-        championship.getTeams().sort(Comparator.comparing(Team::getPoints).reversed());
-        String header = "TEAM; WIN; DRAW; LOSE; PTS";
+        championship.getTeams().sort(Comparator.comparing(Team::getPoints).reversed()
+                .thenComparing(Comparator.comparing(Team::getWin).reversed())
+                .thenComparing(Comparator.comparing(Team::getGoals).reversed()));
+        String header = "Team; Games Played (GP); Win (W); Draw (D); Lose (L); Points (PTS)";
 
         Writer writer = new FileWriter("ChampionshipResult.csv");
         try (CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.EXCEL)) {
@@ -44,18 +44,7 @@ public class FileGenerator {
             e.printStackTrace();
         }
     }
-}
 
-/*        teams.sort(Comparator.comparing(Team::getPoints).reversed());
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("Paula"));
-            for (Team team : teams) {
-                bw.write(team + "\n");
-            }
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
+}
 
 

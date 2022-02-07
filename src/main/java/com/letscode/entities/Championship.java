@@ -17,7 +17,7 @@ public class Championship {
         this.matches = InputFileHandler.readFile(fileName);
         this.teams = setTeams();
         setTeamMatches();
-        setPoints();
+        setTeamPoints();
     }
 
     private List<Team> setTeams() {
@@ -28,7 +28,6 @@ public class Championship {
                         else if (!teamsNames.contains(match.getAwayTeamName())) teamsNames.add(match.getAwayTeamName());
                     }
                 });
-
         return teamsNames.stream().map(Team::new).collect(Collectors.toList());
     }
 
@@ -41,42 +40,45 @@ public class Championship {
                     .collect(Collectors.toList());
 
             team.setMatches(teamMatchesHistory);
+            team.setGamesPlayed(team.getMatches().size());
         });
     }
 
-    private void setPoints() {
-        int points = 0;
+    private void setTeamPoints() {
         int win = 0;
         int draw = 0;
         int lose = 0;
+        int goals = 0;
         for (Team team : teams) {
             for (Match match : team.getMatches()) {
                 if (Objects.equals(team.getName(), match.getHomeTeamName()) || Objects.equals(team.getName(), match.getAwayTeamName())) {
                     if (Objects.equals(team.getName(), match.getHomeTeamName())) {
-                        if (match.getGoalsHomeTeam() > match.getGoalsAwayTeam()) {
-                            team.setPoints(points = points + 3);
-                            team.setWin(win = win + 1);
-                        } else if (match.getGoalsHomeTeam() == match.getGoalsAwayTeam()) {
-                            team.setPoints(points = points + 1);
-                            team.setDraw(draw = draw + 1);
-                        } else team.setLose(lose = lose + 1);
+                        goals = goals + match.getHomeTeamGoals();
+                        if (match.getHomeTeamGoals() > match.getAwayTeamGoals()) {
+                            win = win + 1;
+                        } else if (match.getHomeTeamGoals() == match.getAwayTeamGoals()) {
+                            draw = draw + 1;
+                        } else lose = lose + 1;
                     }
                     else if (Objects.equals(team.getName(), match.getAwayTeamName())) {
-                        if (match.getGoalsAwayTeam() > match.getGoalsHomeTeam()) {
-                            team.setPoints(points = points + 3);
-                            team.setWin(win = win + 1);
-                        } else if (match.getGoalsAwayTeam() == match.getGoalsHomeTeam()) {
-                            team.setPoints(points = points + 1);
-                            team.setDraw(draw = draw + 1);
-                        } else team.setLose(lose = lose + 1);
+                        goals = goals + match.getAwayTeamGoals();
+                        if (match.getAwayTeamGoals() > match.getHomeTeamGoals()) {
+                            win = win + 1;
+                        } else if (match.getAwayTeamGoals() == match.getHomeTeamGoals()) {
+                            draw = draw + 1;
+                        } else lose = lose + 1;
                     }
                 }
+                team.setWin(win);
+                team.setDraw(draw);
+                team.setLose(lose);
+                team.setPoints();
+                team.setGoals(goals);
             }
-
-            points = 0;
             win = 0;
             draw = 0;
             lose = 0;
+            goals = 0;
         }
     }
 
